@@ -1,9 +1,11 @@
 name: Deploy Fake
 on:
-    workflow_call:
+    repository_dispatch:
+        types:
+            - deploy-remoto
 jobs:
     deploy_kubernetes:
         runs-on: ubuntu-latest
         steps:
             - name: Deploy no ambiente
-              run: echo "Executando deploy no ambiente de ${{ secrets.AMBIENTE_ENTREGA }}"
+              run: echo "Executando deploy no ambiente de ${{ github.event.client_payload.ambiente }}"
